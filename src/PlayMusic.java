@@ -6,15 +6,9 @@ import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;
 
-/**
-  * Prompt the user for the song they want to play and plays it, displaying
-  * artwork too.
-  * @author Zachary Ferguson
-  * @version 0.2.0
-  */
+
 public class PlayMusic
 {
-	/** Scanner for getting user input from the cmd line. */
 	private static Scanner input = new Scanner(System.in);
 
 	private static final String DEFAULT_SONGLIST_PATH =
@@ -22,11 +16,7 @@ public class PlayMusic
 	private static Object song;
 	private static MusicPlayer kawaii;
 
-	/**
-	* Runs the PlayMusic program, prompting for various inputs, playing music,
-	* and displaying artwork.
-	* @param args Command line arguments(not used).
-	*/
+
 	public static void main(String[] args)
 	{
 		Scanner playlist;                 /* Playlist of songs to play by number.    */
@@ -140,14 +130,6 @@ public class PlayMusic
 		return path;
 	}
 
-	/**
-	* Constructs a list of SongDetails from the File with the given name.
-	* @param filename Name of the songlist file containing the song titles and
-	* filenames.
-	* @return Returns a new ArrayList of SongDetails acquired from the File.
-	* @throws IOException Throws an exception if something goes wrong while
-	* reading the songlist file.
-	*/
 	private static ArrayList<SongDetails> buildSonglist(String filename)
 		throws IOException
 	{
@@ -185,14 +167,7 @@ public class PlayMusic
 		}
 	}
 
-	/**
-	* Constructs a list of SongDetails from the File with the given name.
-	* @param filename Name of the songlist file containing the song titles and
-	*	filenames.
-	* @return Returns a new ArrayList of SongDetails aquired from the File.
-	* @throws IOException Throws an exception if something goes wrong while
-	*	reading the songlist file.
-	*/
+
 	private static ArrayList<SongDetails> buildSonglist2(String filename)
 		throws IOException
 	{
@@ -246,13 +221,6 @@ public class PlayMusic
 		}
 	}
 
-	/**
-	* Gets a Scanner to get the playlist from.
-	* The playlist is a list of songs to play by number.
-	* @param songCount The number of songs available.
-	*		Used to make a playlist of all song and to make a shuffled playlist.
-	* @return Returns a Scanner that scans over the playlist selected.
-	*/
 	private static Scanner getPlaylist(int songCount)
 	{
 		int choice; /* User's menu choice */
@@ -301,11 +269,6 @@ public class PlayMusic
 		}
 	}
 
-	/**
-	* Makes a playlist containing all available songs in order
-	* @param songCount The total number of songs available including "0", exit.
-	* @return Returns a Scanner that scans over all available songs.
-	*/
 	private static Scanner makeAllPlaylist(int songCount)
 	{
 		StringBuilder all = new StringBuilder();
@@ -319,10 +282,6 @@ public class PlayMusic
 		return new Scanner(all.toString());
 	}
 
-	/**
-	* Makes a playlist from the users input string
-	* @return Returns a Scanner that scans over all the song in the users input.
-	*/
 	private static Scanner getStringPlaylist()
 	{
 		int choice;
@@ -355,10 +314,6 @@ public class PlayMusic
 		return new Scanner(playlist);
 	}
 
-	/**
-	* Saves the given String playlist to a file.
-	* @param playlist String playlist to write out to file.
-	*/
 	private static void savePlaylist(String playlist)
 	{
 		String filename = "";
@@ -385,11 +340,6 @@ public class PlayMusic
 		}
 	}
 
-	/**
-	* Makes a playlist from the selected file containing a playlist
-	* @return Returns a Scanner that scans over all the songs specified in the
-	*	file.
-	*/
 	private static Scanner getFilePlaylist()
 	{
 		/* Get filename */
@@ -414,13 +364,6 @@ public class PlayMusic
 		}
 	}
 
-	/**
-	* Makes a playlist containing a random number, r, of songs in random order.
-	* Where r is greater than 5 and less than 100.
-	* @param songCount The total number of songs available including "0", exit.
-	* @return Returns a Scanner that scans over at least 5 songs in random
-	*	order.
-	*/
 	private static Scanner makeShufflePlaylist(int songCount)
 	{
 		StringBuilder all = new StringBuilder();
@@ -442,14 +385,6 @@ public class PlayMusic
 		return new Scanner(all.toString());
 	}
 
-	/**
-	* Gets the users choice of song form the Scanner in input.
-	* @param playlist Scanner to get the input for the song to be chosen.
-	* @param songinfos ArrayList of Song Details to be used for displaying the
-	*	song options by title and for getting the filename of the choice to
-	*	return.
-	* @return String of file name with out .extension.
-	*/
 	private static SongDetails getSongChoice(Scanner playlist,
 		ArrayList<SongDetails> songinfos)
 	{
@@ -500,15 +435,6 @@ public class PlayMusic
 		}
 	}
 
-	/**
-	* Creates a songlist file with the, with the given name, containing the
-	* contents of the given ArrayList of SongDetails
-	* @param filename A String for the name of the file to save the songlist to.
-	* @param songlist An ArrayList of SongDetails that will be printed out to
-	*	the created file.
-	* @throws IOException Throws an IOException if the file is unable to open
-	*	for writing.
-	*/
 	private static void saveSonglist(String filename, ArrayList<SongDetails>
 		songlist) throws IOException
 	{
@@ -535,15 +461,6 @@ public class PlayMusic
 		}
 	}
 
-	/**
-	* Sorts the given ArrayList of SongDetails in the order specified by the
-	* SongDetails' compareTo(). New list will be return, and the original list
-	* will remain unchanged. Uses a QuickSort algorithm to sort the list.
-	* @param songlist The ArrayList of SongDetails to be sorted. Will remain
-	*	unchanged.
-	* @return Returns a copy of the given ArrayList that is sorted and
-	*	independent of the original.
-	*/
 	@SuppressWarnings("unchecked")
 	private static ArrayList<SongDetails> sortSonglist(ArrayList<SongDetails>
 		songlist)
