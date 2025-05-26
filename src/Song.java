@@ -1,7 +1,6 @@
 import java.io.Serializable;
 
-public class Song implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Song{
 
     private String title;
     private String artist;

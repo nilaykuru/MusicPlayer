@@ -3,9 +3,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
+
 
 public class MusicPlayerGUI extends JFrame {
-    private static final String SONG_DATA_FILE = "songs.dat";
+    private static final String SONG_DATA_FILE = "songs.json";
 
     private DefaultListModel<Song> songListModel = new DefaultListModel<>();
     private JList<Song> songJList = new JList<>(songListModel);
@@ -95,6 +98,9 @@ public class MusicPlayerGUI extends JFrame {
         songs.add(newSong);
         songListModel.addElement(newSong);
         playQueue.offer(newSong);
+
+        // Burada kaydet!
+        saveSongsToFile();
     }
 
     private void playSong() {
@@ -164,24 +170,27 @@ public class MusicPlayerGUI extends JFrame {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void loadSongsFromFile() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SONG_DATA_FILE))) {
-            LinkedList<Song> loadedSongs = (LinkedList<Song>) ois.readObject();
-            for (Song s : loadedSongs) {
-                songs.add(s);
-                songListModel.addElement(s);
-                playQueue.offer(s);
+        try (Reader reader = new FileReader(SONG_DATA_FILE)) {
+            Gson gson = new Gson();
+            LinkedList<Song> loadedSongs = gson.fromJson(reader, new TypeToken<LinkedList<Song>>(){}.getType());
+            if (loadedSongs != null) {
+                for (Song s : loadedSongs) {
+                    songs.add(s);
+                    songListModel.addElement(s);
+                    playQueue.offer(s);
+                }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Kayıtlı şarkı bulunamadı veya okunamadı.");
         }
     }
 
     private void saveSongsToFile() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SONG_DATA_FILE))) {
-            oos.writeObject(songs);
-        } catch (Exception e) {
+        try (Writer writer = new FileWriter(SONG_DATA_FILE)) {
+            Gson gson = new Gson();
+            gson.toJson(songs, writer);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
